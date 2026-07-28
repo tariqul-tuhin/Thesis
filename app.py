@@ -17,24 +17,24 @@ def load_model():
 classifier = load_model()
 
 @st.cache_data
-def prediction(gender, married, dependents, education, self_employed,
-               applicant_income, coapplicant_income, loan_amount,
+def prediction(gender, married, dependents, education, self_employed, 
+               applicant_income, coapplicant_income, loan_amount, 
                loan_term, credit_history, property_area):
-
+    
     # Map user-friendly text selections to matching numerical preprocessed values
     gender_val = 1 if gender == "Male" else 0
     married_val = 1 if married == "Yes" else 0
-
+    
     if dependents == "3+":
         dependents_val = 3
     else:
         dependents_val = int(dependents)
-
+        
     education_val = 0 if education == "Graduate" else 1
     self_employed_val = 1 if self_employed == "Yes" else 0
-
+    
     credit_history_val = 1.0 if credit_history == "Clear Debts (Good)" else 0.0
-
+    
     # Map Property Area back to its encoded floats observed in your dataset
     if property_area == "Urban":
         property_val = 0.6584158415841584
@@ -46,7 +46,7 @@ def prediction(gender, married, dependents, education, self_employed,
     # 2. Build input dataframe matching exact training columns
     input_data = pd.DataFrame(
         [[gender_val, married_val, dependents_val, education_val, self_employed_val,
-          applicant_income, coapplicant_income, loan_amount, loan_term,
+          applicant_income, coapplicant_income, loan_amount, loan_term, 
           credit_history_val, property_val]],
         columns=[
             "Gender", "Married", "Dependents", "Education", "Self_Employed",
@@ -100,7 +100,7 @@ def main():
         with st.spinner("Running eligibility checks against Random Forest matrix..."):
             result = prediction(
                 Gender, Married, Dependents, Education, Self_Employed,
-                ApplicantIncome, CoapplicantIncome, LoanAmount,
+                ApplicantIncome, CoapplicantIncome, LoanAmount, 
                 Loan_Amount_Term, Credit_History, Property_Area
             )
 
